@@ -1,3 +1,7 @@
-import KanbanApi from "./KanbanApi";
+import Kanban from "./view/Kanban.js";
 
-console.log(KanbanApi.getItems(1));
+new Kanban(
+    document.querySelector(".kanban")
+);
+
+
