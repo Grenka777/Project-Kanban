@@ -10,7 +10,7 @@ static getItems(columnId){
 }
 static insertItem(columnId, content){
     const data = read();
-    const column = read().find(column => column.id == columnId);
+    const column = data.find(column => column.id == columnId);
     const item = {
         id: Math.floor(Math.random()*100000),
         content: content
@@ -28,7 +28,7 @@ static insertItem(columnId, content){
 
 static updateItem(itemId, newProps){
  const data = read();
- const [item,currentColumn] = (()=> {
+ const [item,currentColumn] = (() => {
    for(const column of data){
     const item = column.items.find(item => item.id == itemId);
     if(item){
