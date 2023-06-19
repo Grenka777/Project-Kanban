@@ -1,7 +1,7 @@
 .kanban{
     display: flex;
     padding: 30px;
-    width: 750px;
+    width: 95%;
     background-color: blueviolet;
     border-radius: 10px;
 }
@@ -50,6 +50,30 @@
     font-size: 16px;
     color: whitesmoke;
     background: rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.import_item{
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 5px;
+    font-size: 16px;
+    color: whitesmoke;
+    background: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.export_item{
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 5px;
+    font-size: 16px;
+    color: whitesmoke;
+    background: black;
     border: none;
     border-radius: 10px;
     cursor: pointer;

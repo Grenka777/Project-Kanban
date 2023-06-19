@@ -1,4 +1,5 @@
 export default class KanbanApi {
+
 static getItems(columnId){
     const column = read().find(column => column.id == columnId);
 
@@ -58,18 +59,64 @@ if(newProps.columnId !== undefined && newProps.position !== undefined)
 save(data);
 }
 
-static deleteItem(itemId){
+static deleteItem(itemId) {
     const data = read();
 
-    for(const column of data){
-        const item = column.items.find(item => item.id == itemId);
+    for (const column of data) {
+        const index = column.items.findIndex(i => i.id === itemId);
 
-        if(item){
-         column.items.splice(column.items,indexOf(item), 1);
-        }  
+        if (index !== -1) {
+            column.items.splice(index, 1);
+        }
     }
+
     save(data);
 }
+
+
+static importToFile(){
+    document.querySelector('.import_item').addEventListener('click', () => {
+        const data = read();
+        const jsonData = JSON.stringify(data);
+      
+        const element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonData));
+        element.setAttribute('download', 'dane.json');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      });      
+}
+
+static exportFile(){
+    const fileInput = document.getElementById('fileInput');
+    const button = document.querySelector('.export_item');
+    button.addEventListener('click', () => {
+        fileInput.click();
+      });
+    fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const fileContent = event.target.result;
+
+      try {
+        const jsonData = JSON.parse(fileContent);
+        console.log('Wczytane dane:', jsonData);
+        save(jsonData);
+      } catch (error) {
+        console.error('Błąd wczytywania danych JSON:', error);
+      }
+    };
+
+    reader.readAsText(file);
+    location.reload();
+  });
+  
+}
+
 }
 
 function read(){
@@ -98,3 +145,4 @@ function read(){
 function save(data){
     localStorage.setItem("kanban-data",JSON.stringify(data));
 }
+
